@@ -69,7 +69,7 @@ func (self *Server) AcceptLoop(){
 	}
 }
 
-//We could check for EOF error
+
 
 func (self *Server) readLoop(connection net.Conn){
 
@@ -82,6 +82,9 @@ func (self *Server) readLoop(connection net.Conn){
 		n, err := connection.Read(buffer);
 
 		if err != nil {
+			if err == io.EOF {
+				break;
+			}
 			fmt.Println("read error: ", err);
 			continue
 		}
